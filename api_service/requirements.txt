@@ -1,5 +1,8 @@
+celery
 fastapi
+numpy
 Pillow
 pydantic
 python-multipart
+redis
 uvicorn
