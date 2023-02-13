@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  worker-service:
+    image: picsellia-api
+    build:
+      context: ./
+      dockerfile: api_service/Dockerfile
+    ports:
+      - "8011:80"
