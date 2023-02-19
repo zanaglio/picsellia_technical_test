@@ -26,6 +26,7 @@ Here is the list of the features I've developed and what I would have done with 
 - ⚠️ (TODO) Unit tests.
 - ⚠️ (TODO) Logging improvements.
 - ⚠️ (TODO) Download a real segmentation model during container startup.
+- ⚠️ (TODO) Add a reverse-proxy.
 - 🔍 Monitoring strategy (check bellow).
 
 Regarding the TODOs, those are the elements I deprioritized in my ~2 hours time frame. More explanations will be given

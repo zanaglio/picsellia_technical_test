@@ -23,14 +23,13 @@ services:
       context: ./
       dockerfile: api_service/Dockerfile
     ports:
-      - "443:80"
+      - "8011:80"
     depends_on:
       - redis
     networks:
       - picsellia
-    volumes:
-      - "/etc/letsencrypt/live/tech-test-2.picsellia.com:/etc/ssl/live/tech-test-2.picsellia.com"
-      - "/etc/letsencrypt/archive/tech-test-2.picsellia.com:/etc/ssl/archive/tech-test-2.picsellia.com"
+    environment:
+      - ENV=local
 
 networks:
   picsellia:

@@ -1,11 +1,19 @@
 import json
+import os
 
 from fastapi import FastAPI, File, Request, HTTPException
 
 from celery_app import celery
 from utils.image import bytes_to_base64
 
-app = FastAPI()
+if os.environ.get('ENV') == 'local':
+    app = FastAPI()
+
+else:
+    app = FastAPI(
+        ssl_keyfile="/etc/ssl/live/tech-test-2.picsellia.com/privkey.pem",
+        ssl_certfile="/etc/ssl/live/tech-test-2.picsellia.com/fullchain.pem"
+    )
 
 
 @app.get("/")
