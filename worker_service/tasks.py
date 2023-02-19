@@ -1,19 +1,22 @@
 from celery_app import celery
-from model.model import predict
+from models.outline_objects_tasks import OutlineObjectsTask
 from utils.image import base64_to_array
-from utils.outline import get_objects_vertices
+from utils.vertices import extract_vertices
 
 
-@celery.task(name="outline.objects.tasks.process", bind=True)
-def process_image(self, image_as_base64: str) -> list:
-    def update_task_state(state: str, step: int, total: int):
-        self.update_state(state=state, meta={"step": step, "total": total})
+@celery.task(base=OutlineObjectsTask, name="outline.objects.tasks.process", bind=True)
+def compute_objects_outlines(self, image_as_base64: str) -> dict[str]:
+    """
+    Compute all the outlines' vertices of all the detected object within the received image.
+    """
 
-    update_task_state("Performing the prediction", 1, 2)
+    self.update_task_state(self, "Performing the prediction", 1, 2)
     image_data = base64_to_array(image_as_base64)
-    prediction = predict(image_data)
+    prediction = self.model.predict(image_data)
 
-    update_task_state("Computing the objects' vertices", 2, 2)
-    object_vertices = get_objects_vertices(prediction)
+    self.update_task_state(self, "Computing the objects' vertices", 2, 2)
+    object_vertices = extract_vertices(prediction)
 
-    return object_vertices
+    return {
+        "objects_vertices": dict(enumerate(object_vertices))
+    }

@@ -1,4 +1,5 @@
 celery
+imantics
 numpy
 Pillow
 redis

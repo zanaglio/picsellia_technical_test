@@ -10,7 +10,7 @@ app = FastAPI()
 
 @app.get("/")
 async def index():
-    return "OK"
+    return "SUCCESS"
 
 
 @app.post("/image/outline/objects")
