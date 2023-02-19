@@ -7,11 +7,58 @@ This _README.md_ aims to provide all the information related to the technical te
 To run the project, make sure that _Docker_ is installed. Then, just run:
 
 ```bash
-docker-compose build
-docker-compose up
+# Local run on port 8011
+docker-compose -f docker-compose.dev.yml build
+docker-compose -f docker-compose.dev.yml up
+
+# Run on the provided server
+sudo docker-compose build
+sudo docker-compose up
 ```
 
-The application will run on the port 8011.
+## 2. API routes
+
+An auto-generated documentation can be found
+here: [https://tech-test-2.picsellia.com/docs](https://tech-test-2.picsellia.com/docs).
+
+### A. Upload an image
+
+First, upload an image by using the route:
+
+`POST https://tech-test-2.picsellia.com/image/outline/objects`
+
+````bash
+curl -X 'POST' \
+  'https://tech-test-2.picsellia.com/image/outline/objects' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'image=/path/to/an/image;type=image/jpeg'
+  ````
+
+The output will look like this:
+
+```json
+{
+  "id": "{task_id}",
+  "url": "https://tech-test-2.picsellia.com/outline/objects/check/{task_id}"
+}
+```
+
+The output provides a unique URL to query, associated to a newly created _Celery_ task.
+
+### B. Check the task result
+
+Use the _task_id_ provided by the first route, then query:
+
+`GET https://tech-test-2.picsellia.com/outline/objects/check/{task_id}`
+
+```bash
+curl -X 'GET' \
+  'https://tech-test-2.picsellia.com/outline/objects/check/{task_id}' \
+  -H 'accept: application/json'
+```
+
+The output contains all the objects' outlines' vertices.
 
 ## 2. Roadmap
 
@@ -27,6 +74,7 @@ Here is the list of the features I've developed and what I would have done with 
 - ⚠️ (TODO) Logging improvements.
 - ⚠️ (TODO) Download a real segmentation model during container startup.
 - ⚠️ (TODO) Add a reverse-proxy.
+- ⚠️ (TODO) Add some security on the image upload (image size, format, etc.).
 - 🔍 Monitoring strategy (check bellow).
 
 Regarding the TODOs, those are the elements I deprioritized in my ~2 hours time frame. More explanations will be given
