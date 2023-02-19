@@ -1,4 +1,4 @@
-# 🛠🥑 Technical test for picsellia
+# 🛠🥑 Technical test for Picsellia
 
 This _README.md_ aims to provide all the information related to the technical test that Picsellia provided.
 
