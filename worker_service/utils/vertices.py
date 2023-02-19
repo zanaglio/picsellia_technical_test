@@ -13,7 +13,7 @@ def extract_vertices(image_data: np.ndarray) -> list:
     if image_data.size == 0:
         raise ValueError("Cannot handle multiclass when extracting vertices.")
 
-    if image_data.ndim != 2:
+    elif image_data.ndim != 2:
         raise ValueError(f"Cannot compute the outlines' vertices with a {image_data.ndim}-channels image.")
 
     elif image_data.min() != 0 or image_data.max() != 1:

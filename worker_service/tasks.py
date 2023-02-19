@@ -1,5 +1,5 @@
 from celery_app import celery
-from models.outline_objects_tasks import OutlineObjectsTask
+from models.outline_objects_task import OutlineObjectsTask
 from utils.image import base64_to_array
 from utils.vertices import extract_vertices
 
